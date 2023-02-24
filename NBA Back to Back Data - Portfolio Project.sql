@@ -97,9 +97,9 @@ ORDER BY Game_Date
 
 
 
--- Query showing difference B2B and non B2B stats
-WITH 
+-- Query showing difference between B2B and non B2B stats
 -- Back to Back games CTE
+WITH 
 b2b as (
     SELECT
         Season, Team, AVG(CAST(PTS AS DECIMAL)) as B2B_PPG, AVG(FG_Percent) as B2B_FG_Percent, AVG(_3P_Percent) as B2B_3p_Percent, AVG(FT_Percent) as B2B_FT_Percent, AVG(CAST(REB AS DECIMAL)) as B2B_RPG, 
