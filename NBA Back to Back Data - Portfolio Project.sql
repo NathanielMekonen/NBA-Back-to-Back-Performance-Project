@@ -129,8 +129,7 @@ SELECT season, team, Rest_Games, B2B_Games,
                      Rest_APG, B2B_APG, B2B_APG - Rest_APG as Ast_Total_Diff, ((B2B_APG - Rest_APG)/Rest_APG * 100) as Ast_Percent_Diff,
                      Rest_SPG, B2B_SPG, B2B_SPG - Rest_SPG as Stl_Total_Diff, ((B2B_SPG - Rest_SPG)/Rest_SPG * 100) as Stl_Percent_Diff,
                      Rest_BPG, B2B_BPG, B2B_BPG - Rest_BPG as Blk_Total_Diff, ((B2B_BPG - Rest_BPG)/Rest_BPG * 100) as Blk_Percent_Diff,
-                     Rest_TPG, B2B_TPG, B2B_TPG - Rest_TPG as Tov_Total_Diff, ((B2B_TPG - Rest_TPG)/Rest_TPG * 100) as Tov_Percent_Diff
-        
+                     Rest_TPG, B2B_TPG, B2B_TPG - Rest_TPG as Tov_Total_Diff, ((B2B_TPG - Rest_TPG)/Rest_TPG * 100) as Tov_Percent_Diff       
 FROM (
     SELECT 
         rest.season, rest.team, Rest_PPG, Rest_FG_Percent, Rest_3p_Percent, Rest_FT_Percent, Rest_RPG, Rest_APG, Rest_SPG, Rest_BPG, Rest_TPG, Rest_Games,
