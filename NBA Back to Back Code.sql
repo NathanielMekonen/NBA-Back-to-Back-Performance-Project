@@ -182,6 +182,74 @@ ORDER BY wins.Team, wins.Season
 
 
 
+-- Query showing number of missed games due to injury by team by season vs number of B2Bs
+WITH injuries AS (
+    Select 
+        (CASE WHEN date BETWEEN '2010-10-01' AND '2011-06-30' THEN '2010/2011'
+            WHEN date BETWEEN '2011-10-01' AND '2012-06-30' THEN '2011/2012'
+            WHEN date BETWEEN '2012-10-01' AND '2013-06-30' THEN '2012/2013'
+            WHEN date BETWEEN '2013-10-01' AND '2014-06-30' THEN '2013/2014'
+            WHEN date BETWEEN '2014-10-01' AND '2015-06-30' THEN '2014/2015'
+            WHEN date BETWEEN '2015-10-01' AND '2016-06-30' THEN '2015/2016'
+            WHEN date BETWEEN '2016-10-01' AND '2017-06-30' THEN '2016/2017'
+            WHEN date BETWEEN '2017-10-01' AND '2018-06-30' THEN '2017/2018'
+            WHEN date BETWEEN '2018-10-01' AND '2019-06-30' THEN '2018/2019'
+            WHEN date BETWEEN '2019-10-01' AND '2020-08-31' THEN '2019/2020' END) as Season,
+        (CASE WHEN Team = '76ers' THEN 'PHI'
+            WHEN Team = 'Blazers' THEN 'POR'
+            WHEN Team = 'Bobcats' THEN 'CHA'
+            WHEN Team = 'Bucks' THEN 'MIL'
+            WHEN Team = 'Bullets' THEN 'WAS'
+            WHEN Team = 'Bulls' THEN 'CHI'
+            WHEN Team = 'Cavaliers' THEN 'CLE'
+            WHEN Team = 'Celtics' THEN 'BOS'
+            WHEN Team = 'Clippers' THEN 'LAC'
+            WHEN Team = 'Grizzlies' THEN 'MEM'
+            WHEN Team = 'Hawks' THEN 'ATL'
+            WHEN Team = 'Heat' THEN 'MIA'
+            WHEN Team = 'Hornets' THEN 'CHA'
+            WHEN Team = 'Jazz' THEN 'UTA'
+            WHEN Team = 'Kings' THEN 'SAC'
+            WHEN Team = 'Knicks' THEN 'NYK'
+            WHEN Team = 'Lakers' THEN 'LAL'
+            WHEN Team = 'Magic' THEN 'ORL'
+            WHEN Team = 'Mavericks' THEN 'DAL'
+            WHEN Team = 'Nets' THEN 'BKN'
+            WHEN Team = 'Nuggets' THEN 'DEN'
+            WHEN Team = 'Pacers' THEN 'IND'
+            WHEN Team = 'Pelicans' THEN 'NOP'
+            WHEN Team = 'Pistons' THEN 'DET'
+            WHEN Team = 'Raptors' THEN 'TOR'
+            WHEN Team = 'Rockets' THEN 'HOU'
+            WHEN Team = 'Spurs' THEN 'SAS'
+            WHEN Team = 'Suns' THEN 'PHX'
+            WHEN Team = 'Thunder' THEN 'OKC'
+            WHEN Team = 'Timberwolves' THEN 'MIN'
+            WHEN Team = 'Warriors' THEN 'GSW'
+            WHEN Team = 'Wizards' THEN 'WAS' END) AS Team_Name,
+        Relinquished
+From dbo.[injuries_2010-2020]
+WHERE Team IS NOT NULL AND Relinquished IS NOT NULL),
+b2bs AS 
+    (SELECT
+        subq.team, subq.season, COUNT(Game_Date) as B2B_Games
+    FROM (
+         SELECT allboxscores.*, LAG(Game_Date,1) OVER(PARTITION BY Team ORDER BY Game_Date) as Previous_Game
+         FROM allboxscores) as subq
+    WHERE Game_Date = DATEADD(day, 1, Previous_Game)
+    GROUP BY Team, Season)
+
+SELECT
+    injuries.Season, Team_Name, Count(Relinquished) as Num_Injured, B2B_Games
+FROM injuries
+LEFT JOIN b2bs
+ON injuries.season = b2bs.Season AND injuries.team_name = b2bs.team
+WHERE injuries.Season IS NOT NULL
+GROUP BY injuries.season, Team_Name, B2B_Games
+ORDER BY Season, Team_Name
+
+
+
 
 
 
