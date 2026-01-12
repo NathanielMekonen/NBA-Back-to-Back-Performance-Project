@@ -6,9 +6,9 @@ The data used for this analysis was pulled from the "NBA Box Scores 1990-2020 (R
 
 ## Project Links
 
-[Tableau Dashboard Link](https://public.tableau.com/app/profile/nathaniel.mekonen/viz/NBAProject_16771076666030/Dashboard1)
-[Box Score Dataset](https://www.kaggle.com/datasets/mur418/nba-box-scores-19902020-regular-and-playoffs)
-[Injury Dataset](https://www.kaggle.com/datasets/ghopkins/nba-injuries-2010-2018)
+- [Tableau Dashboard Link](https://public.tableau.com/app/profile/nathaniel.mekonen/viz/NBAProject_16771076666030/Dashboard1)
+- [Box Score Dataset](https://www.kaggle.com/datasets/mur418/nba-box-scores-19902020-regular-and-playoffs)
+- [Injury Dataset](https://www.kaggle.com/datasets/ghopkins/nba-injuries-2010-2018)
 
 
 
