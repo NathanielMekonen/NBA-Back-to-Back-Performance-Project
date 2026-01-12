@@ -1,4 +1,4 @@
-# NBA-Back-to-Back-Code
+# NBA Data Analysis: The Effect of Back-to-Back Games on Team Performance
 
 The goal of this project was to analyze how NBA teams perform in the second game of a back-to-back in comparison to games played with at least one day of rest.
 
